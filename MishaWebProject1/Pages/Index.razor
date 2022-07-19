@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<h3>Просто страница</h3>
+
+<input @bind="text"/>
+<div></div>
+<input @bind="birthT"/>
+<div></div>
+<input @bind="heightT"/>
+<div></div>
+<button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
+
+@foreach (Person p in group) {<div>имя @(p.name)    день рождение @(p.birth)   рост @(p.height)</div>}
+
+
+@code {
+    string text = "";
+    string birthT = "";
+    string heightT = "";
+    string onBtn = "Добавить персону";
+    List<Person> group = new List<Person>();
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+       
+
+
+    }
+    private void addPerson()
+    {
+        if (text =="" || birthT == "" || heightT =="")
+            {
+            onBtn = "Заполните все поля";
+            return;
+            }
+       
+       
+        group.Add(new Person() { birth = birthT, name=text, height=int.Parse(heightT), });
+    }
+
+    public class Person
+    {
+        public string name;
+        public string birth;
+        public int height;
+
+    }
+
+}

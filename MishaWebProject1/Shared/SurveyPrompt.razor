@@ -1,0 +1,17 @@
+﻿
+<div class="alert alert-secondary mt-4" role="alert">
+    <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+    <strong>@Title</strong>
+
+    <span class="text-nowrap">
+        Краткое руководство
+        <a target="_blank" class="font-weight-bold" href="https://github.com/agmarchuk/Ssyp2022/blob/main/Lessons.md">по сайтам,</a>
+    </span>
+    чтобы долго не искать
+</div>
+
+@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string Title { get; set; }
+}

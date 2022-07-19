@@ -1,0 +1,51 @@
+﻿@page "/index1"
+
+<div style="text-align:center;background-color:aqua; border: 1px solid black; height:50px"><h1>ИНФОРМБЮРО</h1></div>
+
+
+@*<div>
+    <div style="display: inline-block; float: left; width: 50%; text-align: center; border: 1px solid; height:100px;">Левая панель</div>
+    <div style="display: inline-block; float:right; width: 50%; text-align: center; border: 1px solid; height: 100px;">Правая понель</div>
+</div>*@
+
+<div style="border: 1px solid; text-align: center;"></div>
+
+@foreach (Person p in persons) {<div>имя @(p.name)   день рождение @(p.birth)   рост @(p.height) </div>}
+
+
+<Counter></Counter>
+
+@code{
+    public class Person
+    {
+        public string name;
+        public string birth;
+        public int height;
+
+    }
+
+    Person me = new Person();
+    Random rnd = new Random();
+
+    Person[] group;
+    List<Person> persons = new List<Person>();
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        group = new Person[]
+               {
+            new Person{name="Иван", birth="1990.07.27", height=rnd.Next(140, 210)},
+            new Person{name="Петр", birth="1980.11.10", height=rnd.Next(140, 210)},
+            new Person{name="Олег", birth="1999.12.01", height=rnd.Next(130, 195)},
+            new Person{name="Сергей", birth="2000.01.01", height=rnd.Next(130, 190)},
+               };
+        persons = new List<Person>(group);
+
+    }
+
+
+}
+
+
+
+
