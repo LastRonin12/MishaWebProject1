@@ -2,49 +2,65 @@
 
 <h3>Просто страница</h3>
 
-<input @bind="text"/>
+<input @bind="text" placeholder="Имя"/>
 <div></div>
-<input @bind="birthT"/>
+<input @bind="yearsT" placeholder="Возраст" />
 <div></div>
-<input @bind="heightT"/>
+<input @bind="heightT" placeholder="Рост"/>
 <div></div>
 <button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
 
+<MishaWebProject1.Components.Chat name="@text"></MishaWebProject1.Components.Chat>
 @foreach (Person p in group) {<div>имя @(p.name)    день рождение @(p.birth)   рост @(p.height)</div>}
 
 
 @code {
     string text = "";
-    string birthT = "";
+    string yearsT = "";
     string heightT = "";
     string onBtn = "Добавить персону";
-    List<Person> group = new List<Person>();
+    static List<Person> group = new List<Person>();
 
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-       
-
-
-    }
     private void addPerson()
+
     {
-        if (text =="" || birthT == "" || heightT =="")
-            {
+
+        if (text =="" || yearsT == "" || heightT =="")
+        {
             onBtn = "Заполните все поля";
             return;
+        }
+        int heightI;
+        int yearsI;
+        try
+        {
+            heightI = int.Parse(heightT);
+            yearsI = int.Parse(yearsT);
+        }catch (System.FormatException)
+        {
+            onBtn = "Рост не число!";
+            return;
+        }
+        foreach (Person p in group)
+        {
+            if (p.name == text && p.height==heightI && p.birth == yearsI)
+            {
+                onBtn = "Это человек уже есть!";
+                return;
             }
-       
-       
-        group.Add(new Person() { birth = birthT, name=text, height=int.Parse(heightT), });
+        }
+
+
+        group.Add(new Person() { birth = yearsI, name=text, height=heightI, });
     }
 
     public class Person
     {
         public string name;
-        public string birth;
+        public int birth;
         public int height;
 
     }
+
 
 }
