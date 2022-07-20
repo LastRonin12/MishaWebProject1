@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<h3>Test</h3>
+
+<MishaWebProject1.Components.Counter clicksStart="100" handler="(k)=>clicksSet((int)k)"  ></MishaWebProject1.Components.Counter>
+
+<div>@clicks</div>
+
+@code {
+    int clicks = 0;
+    void clicksSet(int k)
+    {
+        clicks = k;
+    }
+
+}

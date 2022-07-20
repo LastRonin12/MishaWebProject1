@@ -1,6 +1,4 @@
-﻿@page "/counter"
-
-<h1>Задание дня</h1>
+﻿<h1>Задание дня</h1>
 
 <h2>@str</h2>
 <h3>Нажали: @currentCount раз</h3>
@@ -8,13 +6,23 @@
 <button class="btn btn-primary" @onclick="IncrementCount">КЛИКНИ</button>
 
 @code {
+        [Parameter]
+        public EventCallback handler { get; set; }
+        [Parameter]
+        public int clicksStart { get; set; }
+
     private int currentCount = 0;
     private string reward = "";
     private string str = "Нажмите 50 раз";
 
+
     private void IncrementCount()
     {
         currentCount++;
+        if (currentCount % 5 == 0)
+        {
+            handler.InvokeAsync((int)currentCount);
+        }
         if (currentCount == 10)
         {
             reward = "Так держать!";
