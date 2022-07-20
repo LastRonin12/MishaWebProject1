@@ -1,27 +1,42 @@
 ﻿
-<div>
-    @*@foreach (String msgI in messages)
-    {<div>@msgI</div>}*@
+
+<div style="border: 1px solid; width:320px; height:400px;  border-radius:10px;">
+    @foreach (Classes.Message msgI in messages)
+    {<div>
+    <div style="color:blue; ">@(msgI.getDate())</div>
+    <div>@(msgI.getMessage())</div>
+</div>
+    }
     <input @bind="msg" />
     <button class="btn btn-primary" @onclick="SendMessage">Отправить</button>
 </div>
 @code {
-    [Parameter]
-    public string name { get; set; }
+        [Parameter]
+        public string name { get; set; }
+
 
     private string msg = "";
 
-    public static List<String> messages = new List<string>();
+    public static List<Classes.Message> messages = new List<Classes.Message>();
 
 
     public DateTime date = DateTime.Now;
 
-        public void SendMessage()
-        {
-            messages.Add(msg + " от " + name + "| " + date.ToString());
-        }
+    public void SendMessage()
+    {
+        if (msg == "")
+            {
+            return;
+            }
+        Classes.Message message = new Classes.Message();
+        message.setDate();
+        message.setUser(name);
+        message.setMessage(msg);
+        messages.Add(message);
+    }
 
-    
+
+
 
 
     //public void Sent()
