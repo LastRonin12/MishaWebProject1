@@ -1,7 +1,5 @@
-﻿@page "/index"
-
-<h3>Просто страница</h3>
-
+﻿
+<div style="border:1px solid">
 <input @bind="text" placeholder="Имя"/>
 <div></div>
 <input @bind="yearsT" placeholder="Возраст" />
@@ -9,12 +7,13 @@
 <input @bind="heightT" placeholder="Рост"/>
 <div></div>
 <button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
-
-<MishaWebProject1.Components.Chat name="@text"></MishaWebProject1.Components.Chat>
-@foreach (Person p in group) {<div>имя @(p.name)    день рождение @(p.birth)   рост @(p.height)</div>}
+</div>
 
 
 @code {
+    [Parameter]
+    public EventCallback handler { get; set; }
+
     string text = "";
     string yearsT = "";
     string heightT = "";
@@ -52,6 +51,7 @@
 
 
         group.Add(new Person() { birth = yearsI, name=text, height=heightI, });
+        handler.InvokeAsync((string)text);
     }
 
     public class Person
