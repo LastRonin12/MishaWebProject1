@@ -1,0 +1,44 @@
+﻿
+<div>
+    <button @onclick="previewPicture" style="width:auto; border-radius:5px; background-color:white">
+        <img src="/arrows/left.jpg" style="border:hidden; width:27px" />
+    </button>
+    <img src="@path" style="width:1020px;height:600px" />
+    <button @onclick="nextPicture" style="width:auto; border-radius:5px; background-color:white">
+        <img src="/arrows/right.jpg" style="border:hidden; width:27px" />
+    </button>
+
+</div>
+
+
+@code {
+    int picture = 1;
+    int maxPicture = 3;
+    string path ="";
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        path = "/images/img" + picture.ToString() + ".jpg";
+    }
+
+    void nextPicture()
+    {
+        picture++;
+        if (picture >= maxPicture+1)
+        {
+            picture = 1;
+        }
+        path = "/images/img" + picture.ToString() + ".jpg";
+    }
+    void previewPicture()
+    {
+        picture--;
+        if (picture <= 0)
+        {
+            picture = maxPicture;
+        }
+        path = "/images/img" + picture.ToString() + ".jpg";
+    }
+
+}

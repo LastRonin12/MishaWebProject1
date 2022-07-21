@@ -1,14 +1,13 @@
 ﻿@page "/"
 <div style="float:right; width:auto"><MishaWebProject1.Components.Registration handler="(u)=>setUser((string)u)"></MishaWebProject1.Components.Registration></div>
-
 @if (user != "")
 {
-<div style="float:right; width:auto;">
-    <MishaWebProject1.Components.Chat name="@user"></MishaWebProject1.Components.Chat>
-</div>
+    <div style="float:right; width:auto;">
+        <MishaWebProject1.Components.Chat name="@user"></MishaWebProject1.Components.Chat>
+    </div>
 
 }
-
+<MishaWebProject1.Components.Pictures ></MishaWebProject1.Components.Pictures>
 
 @code {
     public string user = "";
