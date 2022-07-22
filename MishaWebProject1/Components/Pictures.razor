@@ -3,7 +3,7 @@
     <button class="btn-l" @onclick="previewPicture" style="width:auto;">
         <img src="/arrows/left.png" style="border:hidden; width:27px" />
     </button>
-    <img src="@path" style="width:1020px;height:600px" />
+    <img class="img" src="@path" style="width:1020px;height:600px" />
     <button class="btn-r" @onclick="nextPicture" style="width:auto;">
         <img src="/arrows/right.png" style="border: hidden; width: 27px; " />
     </button>
@@ -11,49 +11,12 @@
 </div>
 
 
-<style>
-    .container {
-        position: relative;
-        width: 100%;
-    }
-
-    .container img {
-            width: 100%;
-            height: auto;
-        }
-
-        .container .btn-l {
-            position: absolute;
-            top: 45%;
-            left: 17px;
-            float:left;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: left;
-            background-color:transparent;
-   
-        }
-        .container .btn-r {
-            position: absolute;
-            top: 45%;
-            float:right;
-            left: 993px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-align: right;
-            background-color: transparent;
-        }
-
-
-</style>
 
 
 @code {
     int picture = 1;
     int maxPicture = 3;
-    string path ="";
+    string path = "";
 
     protected override void OnParametersSet()
     {
@@ -64,7 +27,7 @@
     void nextPicture()
     {
         picture++;
-        if (picture >= maxPicture+1)
+        if (picture >= maxPicture + 1)
         {
             picture = 1;
         }
@@ -81,3 +44,40 @@
     }
 
 }
+
+<style>
+    .container {
+        position: relative;
+        width: 100%;
+    }
+
+        .container img {
+            width: 100%;
+            height: auto;
+            cursor:pointer;
+        }
+
+        .container .btn-l {
+            position: absolute;
+            top: 45%;
+            left: 17px;
+            float: left;
+            border: hidden;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
+            background-color: transparent;
+        }
+
+        .container .btn-r {
+            position: absolute;
+            top: 45%;
+            float: right;
+            left: 993px;
+            border: hidden;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: right;
+            background-color: transparent;
+        }
+</style>

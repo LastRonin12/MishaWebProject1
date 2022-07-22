@@ -1,10 +1,16 @@
 ﻿
 <div style="border:1px solid">
-<input @bind="text" placeholder="Имя"/>
+    @if (reg) { 
+<input @bind="name" placeholder="Имя"/>
 <div></div>
-<input @bind="yearsT" placeholder="Возраст" />
+<input @bind="name2" placeholder="Фамилия" />
 <div></div>
-<input @bind="heightT" placeholder="Рост"/>
+    }
+<input @bind="nickname" placeholder="Никнейм"/>
+<div></div>
+ <input @bind="password" placeholder="Пароль"/>
+<div></div>
+ <input @bind="passwordR" placeholder="Повторите пароль"/>
 <div></div>
 <button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
 </div>
@@ -14,51 +20,46 @@
     [Parameter]
     public EventCallback handler { get; set; }
 
-    string text = "";
-    string yearsT = "";
-    string heightT = "";
-    string onBtn = "Добавить персону";
+    bool reg = false;
+
+    string name = "";
+    string name2 = "";
+    string nickname = "";
+    string password = "";
+    string passwordR = "";
+
+    string onBtn = "Зарегистрироваться";
     static List<Person> group = new List<Person>();
 
     private void addPerson()
 
     {
 
-        if (text =="" || yearsT == "" || heightT =="")
+        if (name =="" || name2 == "" || nickname =="")
         {
             onBtn = "Заполните все поля";
             return;
         }
-        int heightI;
-        int yearsI;
-        try
-        {
-            heightI = int.Parse(heightT);
-            yearsI = int.Parse(yearsT);
-        }catch (System.FormatException)
-        {
-            onBtn = "Рост не число!";
-            return;
-        }
         foreach (Person p in group)
         {
-            if (p.name == text && p.height==heightI && p.birth == yearsI)
+            if (p.name == name && p.name2==name2 && p.nickname == nickname)
             {
-                onBtn = "Это человек уже есть!";
+                onBtn = "Это человек уже есть! Войдите";
                 return;
             }
         }
 
 
-        group.Add(new Person() { birth = yearsI, name=text, height=heightI, });
-        handler.InvokeAsync((string)text);
+        group.Add(new Person() { name = name, name2=name2, nickname=nickname,password=password }) ;
+        handler.InvokeAsync((string)nickname);
     }
 
     public class Person
     {
         public string name;
-        public int birth;
-        public int height;
+        public string name2;
+        public string nickname;
+        public string password;
 
     }
 
