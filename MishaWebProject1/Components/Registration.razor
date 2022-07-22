@@ -1,19 +1,32 @@
 ﻿
-<div style="border:1px solid">
-    @if (reg) { 
-<input @bind="name" placeholder="Имя"/>
-<div></div>
-<input @bind="name2" placeholder="Фамилия" />
-<div></div>
+@if (!auth)
+{
+    <div style="border:1px solid">
+    @if (reg)
+    {
+        <input @bind="name" placeholder="Имя" />
+        <div></div>
+        <input @bind="name2" placeholder="Фамилия" />
+        <div></div>
     }
-<input @bind="nickname" placeholder="Никнейм"/>
-<div></div>
- <input @bind="password" placeholder="Пароль"/>
-<div></div>
- <input @bind="passwordR" placeholder="Повторите пароль"/>
-<div></div>
-<button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
+    <input @bind="nickname" placeholder="Никнейм" />
+    <div></div>
+    <input @bind="password" placeholder="Пароль" />
+    <div></div>
+    @if (reg)
+    {
+        <input @bind="passwordR" placeholder="Повторите пароль" />
+        <div></div>
+        <button class="btn btn-primary" @onclick="addPerson">@(onBtn)</button>
+        <div style="color:cadetblue;" @onclick="setTrue">Войти</div>
+    }@if (!reg)
+    {
+        <button class="btn btn-primary" @onclick="enter">@(onBtnE)</button>
+        <div style="color:cadetblue;" @onclick="setTrue">Зарегистрироваться</div>
+    }
 </div>
+}
+
 
 
 @code {
@@ -21,6 +34,7 @@
     public EventCallback handler { get; set; }
 
     bool reg = false;
+    bool auth = false;
 
     string name = "";
     string name2 = "";
@@ -29,10 +43,10 @@
     string passwordR = "";
 
     string onBtn = "Зарегистрироваться";
-    static List<Person> group = new List<Person>();
+    string onBtnE = "Войти";
+    public static List<Classes.Person> group = new List<Classes.Person>();
 
     private void addPerson()
-
     {
 
         if (name =="" || name2 == "" || nickname =="")
@@ -40,28 +54,66 @@
             onBtn = "Заполните все поля";
             return;
         }
-        foreach (Person p in group)
+        if (password != passwordR)
         {
-            if (p.name == name && p.name2==name2 && p.nickname == nickname)
+            onBtn = "Пароли не совпадают";
+            return;
+        }
+        foreach (Classes.Person p in group)
+        {
+            if (p.name == name && p.name2==name2)
             {
-                onBtn = "Это человек уже есть! Войдите";
+                onBtn = "Вы зарегистрированны! Войдите";
+                return;
+            }
+            if(p.nickname == nickname)
+            {
+                onBtn = "Никнейм уже занят";
                 return;
             }
         }
-
-
-        group.Add(new Person() { name = name, name2=name2, nickname=nickname,password=password }) ;
-        handler.InvokeAsync((string)nickname);
+        auth = true;
+        Classes.Person person = new Classes.Person() { name = name, name2 = name2, nickname = nickname, password = password };
+        group.Add(person) ;
+        handler.InvokeAsync(person);
     }
-
-    public class Person
+    private void enter()
     {
-        public string name;
-        public string name2;
-        public string nickname;
-        public string password;
+        if (nickname=="" || password=="")
+        {
+            onBtnE = "Заполните все поля";
+            return;
+        }
+        foreach (Classes.Person p in group)
+        {
+            if (p.nickname == nickname)
+            {
+                reg = false;
+                if (p.password == password)
+                {
+                    auth = true;
+                    handler.InvokeAsync(p);
+                }
+                else
+                {
+                    onBtnE = "Неправильный пароль";
+                }
+                return;
+            }
+        }
+        onBtnE = "Никнейм не найден";
 
     }
+    private void setTrue()
+    {
+        if (reg)
+        {
+            reg = false;
+        } else if (!reg) {
+            reg = true;
+        } }
+
+
 
 
 }
