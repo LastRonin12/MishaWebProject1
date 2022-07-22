@@ -10,8 +10,4 @@
     <None Include="wwwroot\images\img3.jpg" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\arrows\" />
-  </ItemGroup>
-
 </Project>

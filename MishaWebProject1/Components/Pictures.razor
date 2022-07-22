@@ -1,14 +1,53 @@
 ﻿
-<div>
-    <button @onclick="previewPicture" style="width:auto; border-radius:5px; background-color:white">
-        <img src="/arrows/left.jpg" style="border:hidden; width:27px" />
+<div class="container">
+    <button class="btn-l" @onclick="previewPicture" style="width:auto;">
+        <img src="/arrows/left.png" style="border:hidden; width:27px" />
     </button>
     <img src="@path" style="width:1020px;height:600px" />
-    <button @onclick="nextPicture" style="width:auto; border-radius:5px; background-color:white">
-        <img src="/arrows/right.jpg" style="border:hidden; width:27px" />
+    <button class="btn-r" @onclick="nextPicture" style="width:auto;">
+        <img src="/arrows/right.png" style="border: hidden; width: 27px; " />
     </button>
 
 </div>
+
+
+<style>
+    .container {
+        position: relative;
+        width: 100%;
+    }
+
+    .container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .container .btn-l {
+            position: absolute;
+            top: 45%;
+            left: 17px;
+            float:left;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
+            background-color:transparent;
+   
+        }
+        .container .btn-r {
+            position: absolute;
+            top: 45%;
+            float:right;
+            left: 993px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: right;
+            background-color: transparent;
+        }
+
+
+</style>
 
 
 @code {
